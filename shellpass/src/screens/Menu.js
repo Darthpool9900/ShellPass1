@@ -83,7 +83,9 @@ export default function Menu() {
                 }}> Histórico</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity
+            <TouchableOpacity onPress={() =>{
+                navigation.navigate('Mapa ')
+            }}
             style={Styles.MenuButtons}>
                 <GlobeHemisphereEast size={32} />
                 <Text style={{marginLeft: 35,

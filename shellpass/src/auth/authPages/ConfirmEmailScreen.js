@@ -5,7 +5,6 @@ import CustomButton from "../authComponents/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
 
-
  export default function ConfirmEmailScreen() {
     const [code, setCode] = useState('');
     const {height} = useWindowDimensions();

@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from '../screens/Home';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import Menu from '../screens/Menu';
 import AboutApp from '../components/MenuComponents/AboutApp';
 import Ajusts from '../components/MenuComponents/Ajusts';
@@ -42,12 +42,13 @@ import Question16 from '../components/Perguntas/Question16';
 import Config from '../screens/Config';
 
 
+
 const Stack = createNativeStackNavigator();
 
 export default function Router() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'
+      <Stack.Navigator initialRouteName='Login'
       screenOptions={{
         headerShown: false
       }}>
@@ -91,6 +92,6 @@ export default function Router() {
         <Stack.Screen name='Question16' component={Question16} />
         <Stack.Screen name='Config' component={Config} />
       </Stack.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
   );
 };

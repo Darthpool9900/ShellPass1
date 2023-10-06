@@ -10,13 +10,27 @@ export const MapStyles = StyleSheet.create({
             backgroundColor: '#f0f0f0', 
         },
         map: {
-            height: '60%',
+            height: '80%',
             backgroundColor: 'black',
 
         },
         search: {
-            height: '40%',
+            height: '20%',
             backgroundColor: '#FFD700',
         },
+        bloco: {
+            width: '50%',
+            justifyContent: 'center',
+            alignSelf: 'center',
+            backgroundColor: 'white',
+            height: '20%',
+            borderRadius: 10,
+        },
+        text: {
+            alignSelf: 'center',
+            justifyContent: 'center',
+            fontWeight: 'bold',
+            fontSize: 12
+        }
       
 })

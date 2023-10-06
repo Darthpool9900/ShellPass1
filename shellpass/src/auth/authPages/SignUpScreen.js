@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
     const {height} = useWindowDimensions();
     const onRegisterPressed = () => {
         console.warn('Cadastrado ')
-        navigation.navigate('Confirmar')
+       navigation.navigate('Confirmar')
     };
 
     const onSignInPress = () => {
@@ -54,7 +54,9 @@ import { useNavigation } from "@react-navigation/native";
                 secureTextEntry={true}/>
 {/* no cadastrar, aparece a tela confirmar email  */}
                 <CustomButton text='Cadastrar'
-                onPress={onRegisterPressed}/>
+                onPress={() => {
+                    navigation.navigate('Confirmar')
+                }}/>
 
                 <Text style={styles.text}>Ao cadastrar, você confirma que você aceita 
                     nossos 
@@ -89,5 +91,9 @@ const styles = StyleSheet.create({
     },
     link: {
         color: '#fdb075'
-    }
+    },
+    Corpo: {
+        height: '30%',
+        backgroundColor: '#FFD700'
+    },
 }) 

@@ -1,5 +1,6 @@
 import React from "react";
-import CustomButton from "../authScreen/SignUpScreen";
+import CustomButton from "./CustomButton";
+
 
 export default function SocialSignInButtons() {
     const onSignInFacebook = () => {
@@ -11,6 +12,7 @@ export default function SocialSignInButtons() {
     const onSignInApple = () => {
         console.warn('Entrar com Apple')
     };
+
     return(
         <>
             <CustomButton text='Entrar com Facebook'

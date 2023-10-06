@@ -1,15 +1,35 @@
 import React, {useState} from "react";
-import { View, Image, StyleSheet, useWindowDimensions, ScrollView} from 'react-native';
+import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView} from 'react-native';
 import CustomInput from "../authComponents/CustomInput";
 import CustomButton from "../authComponents/CustomButton";
 import SocialSignInButtons from "../authComponents/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../services/firebaseConfig";
 
 
- export default function SignInScreen() {
-    const [username, setUsername] = useState('');
+ export default function SignInScreen({ setUser }) {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {height} = useWindowDimensions();
+
+    const handleLogin = () => {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {   
+                const user = userCredential.user;
+                console.log(user);
+                setUser(user);
+                    
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+    }
+
+
+
     const onSignInPressed = () => {
         console.warn('Sign in ')
         navigation.navigate('Home')
@@ -32,9 +52,9 @@ import { useNavigation } from "@react-navigation/native";
                 style={[styles.logo, {height: height * 0.3}]}
                 resizeMode="contain"/>
 
-                <CustomInput placeholder='Nome' 
-                value={username} 
-                setValue={setUsername}/>
+                <CustomInput placeholder='Email' 
+                value={email} 
+                setValue={setEmail}/>
 
                 <CustomInput placeholder="Senha" 
                 value={password} 
@@ -42,7 +62,7 @@ import { useNavigation } from "@react-navigation/native";
                 secureTextEntry={true}/>
 
                 <CustomButton text='Entrar'
-                onPress={onSignInPressed}/>
+                onPress={handleLogin}/>
 
                 <CustomButton text='Esqueceu a senha?' 
                 onPress={onForgotPasswordPressed} 
@@ -66,6 +86,6 @@ const styles = StyleSheet.create({
     },
     root: {
         alignItems: 'center',
-        padding: 2
+        padding: 65
     }
 })

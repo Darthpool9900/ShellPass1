@@ -20,6 +20,7 @@ export default function Camera() {
       };
     return(
         <View style={styles.container}>
+
             {hasPermission === null ? (
         <Text>Esperando a permissão do uso da câmera...</Text>
       ) : hasPermission === false ? (
@@ -30,14 +31,16 @@ export default function Camera() {
           style={StyleSheet.absoluteFillObject}
         />
       )}
+
+
         <ButtonBB />
+
         </View>
     );
 };
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: 'column',
       justifyContent: 'center',
     },
   });

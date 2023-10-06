@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const CustomButton = ({ onPress, text, type = 'PRIMARY', bgColor, fgColor }) => {
+export default function CustomButton ({ onPress, text, type = 'PRIMARY', bgColor, fgColor, logo }) {
     return(
         <TouchableOpacity 
         style={[
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3b71f3', 
     },
     container_TERTIARY: {
-        backgroundColor: '#d3d3d3'
+        backgroundColor: '#f0f0f0'
     },
     container_SECONDARY: {
         borderColor: '#3b71f3',
@@ -49,5 +49,3 @@ const styles = StyleSheet.create({
         color: '#3b71f3'
     }
 })
-
-export default CustomButton

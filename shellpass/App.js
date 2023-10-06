@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Router from './src/routes/Router';
-import AuthRouter from './src/auth/authRouter/authRouter';
+import Navigation from './src/auth/navigation';
 
 export default function App() {
-  return (
-    < Router/>
-  );
+  const [ user, setUser] = useState();
+  return !user ? <Navigation setUser={setUser} /> : <Router />
 };
+
 
 
