@@ -16,3 +16,4 @@
 * npm install react-native-maps-directions
 * npm install expo-location
 * npm install react-native-screens react-native-safe-area-context
+* npm install firebase
