@@ -24,10 +24,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 10,
         marginVertical: 15,
-        height: '8%',
-        justifyContent: 'center'
+        height: 40,
+        justifyContent: 'center',
+        alignSelf: 'center'
     },
     input: {
-       
+        backgroundColor: 'white',
+        width: '100%',
     }
 })

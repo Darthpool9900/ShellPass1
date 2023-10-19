@@ -21,7 +21,7 @@ export default function CustomButton ({ onPress, text, type = 'PRIMARY', bgColor
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#3b71f3',
+        backgroundColor: '#70126A',
         width: '100%',
         padding: 15,
         marginVertical: 5,
@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     container_PRIMARY: {
-        backgroundColor: '#3b71f3', 
+        backgroundColor: '#70126A', 
     },
     container_TERTIARY: {
-        backgroundColor: '#f0f0f0'
+        backgroundColor: '#CAC1FE'
     },
     container_SECONDARY: {
-        borderColor: '#3b71f3',
+        borderColor: '#70126A',
         borderWidth: 2,
     },
     text: {
@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     text_TERTIARY:{
-        color: 'gray'
+        color: 'white'
     },
     text_SECONDARY: {
-        color: '#3b71f3'
+        color: '#70126A'
     }
 })

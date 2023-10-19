@@ -84,7 +84,7 @@ export default function Menu() {
             </TouchableOpacity>
             
             <TouchableOpacity onPress={() =>{
-                navigation.navigate('Mapa ')
+                navigation.navigate('Mapa')
             }}
             style={Styles.MenuButtons}>
                 <GlobeHemisphereEast size={32} />

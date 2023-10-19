@@ -2,22 +2,34 @@ import React, {useState} from "react";
 import { View, Text, StyleSheet, useWindowDimensions, ScrollView, Linking} from 'react-native';
 import CustomInput from "../authComponents/CustomInput";
 import CustomButton from "../authComponents/CustomButton";
-import SocialSignInButtons from "../authComponents/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../services/firebaseConfig";
 
- export default function SignUpScreen() {
+ export default function SignUpScreen({setUser}) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const {height} = useWindowDimensions();
-    const onRegisterPressed = () => {
-        console.warn('Cadastrado ')
-       navigation.navigate('Confirmar')
+    const handleLogin = () => {
+            createUserWithEmailAndPassword(auth, email, password)
+                 .then((userCredential) => {
+                    navigation.navigate('Home')
+                const user = userCredential.user;
+                console.log(user);
+                setUser(user)
+             })
+                .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage)
+        // ..
+    });
+       
     };
 
     const onSignInPress = () => {
-        console.warn('Entrar em uma conta')
         navigation.navigate('Login')
     };
     const url = 'https://www.freeprivacypolicy.com/live/adc445d0-8687-4f6e-8141-c3cbeae96e9d'
@@ -32,43 +44,41 @@ import { useNavigation } from "@react-navigation/native";
     const navigation = useNavigation();
     return(
         <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.root}>
-                <Text style={styles.title}> Crie uma Conta</Text>
+            <View style={styles.card}>
+                <View style={styles.root}>
+                    <Text style={styles.title}> Crie uma Conta</Text>
 
-                <CustomInput placeholder='Nome' 
-                value={username} 
-                setValue={setUsername}/>
+                    <CustomInput placeholder='Nome' 
+                    value={username} 
+                    setValue={setUsername}/>
 
-                <CustomInput placeholder='Email' 
-                value={email} 
-                setValue={setEmail}/>
+                    <CustomInput placeholder='Email' 
+                    value={email} 
+                    setValue={setEmail}/>
 
-                <CustomInput placeholder="Senha" 
-                value={password} 
-                setValue={setPassword}
-                secureTextEntry={true}/>
+                    <CustomInput placeholder="Senha" 
+                    value={password} 
+                    setValue={setPassword}
+                    secureTextEntry={true}/>
 
-                <CustomInput placeholder="Repetir senha" 
-                value={passwordRepeat} 
-                setValue={setPasswordRepeat}
-                secureTextEntry={true}/>
-{/* no cadastrar, aparece a tela confirmar email  */}
-                <CustomButton text='Cadastrar'
-                onPress={() => {
-                    navigation.navigate('Confirmar')
-                }}/>
+                    <CustomInput placeholder="Repetir senha" 
+                    value={passwordRepeat} 
+                    setValue={setPasswordRepeat}
+                    secureTextEntry={true}/>
+                    <CustomButton text='Cadastrar'
+                    onPress={handleLogin}/>
 
-                <Text style={styles.text}>Ao cadastrar, você confirma que você aceita 
-                    nossos 
-                    <Text style={styles.link} onPress={openSite}> Termos de Uso </Text> e 
-                    <Text style={styles.link} onPress={openURL}> Política de Privacidade</Text>
-                </Text>
+                    <Text style={styles.text}>Ao cadastrar, você confirma que você aceita 
+                        nossos 
+                        <Text style={styles.link} onPress={openSite}> Termos de Uso </Text> e 
+                        <Text style={styles.link} onPress={openURL}> Política de Privacidade</Text>
+                    </Text>
 
-                <SocialSignInButtons />
+                    <CustomButton text='Já possui uma conta? Entre' 
+                    onPress={onSignInPress} 
+                    type="TERTIARY"/>
 
-                <CustomButton text='Já possui uma conta? Entre' 
-                onPress={onSignInPress} 
-                type="TERTIARY"/>
+                </View>
             </View>
         </ScrollView>
     )
@@ -77,7 +87,8 @@ import { useNavigation } from "@react-navigation/native";
 const styles = StyleSheet.create({
     root: {
         alignItems: 'center',
-        padding: 65
+        padding: 65,
+        marginTop: '45%'
     },
     title: {
         fontSize: 24,
@@ -92,8 +103,9 @@ const styles = StyleSheet.create({
     link: {
         color: '#fdb075'
     },
-    Corpo: {
+    card: {
         height: '30%',
-        backgroundColor: '#FFD700'
-    },
+        backgroundColor: '#FFD700',
+
+    }
 }) 

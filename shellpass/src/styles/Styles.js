@@ -498,7 +498,7 @@ Manual: {
   botaoAvancar: {
     backgroundColor: '#FFD400',
     fontSize: 20, 
-    leftt: '50%',
+
     height: '10%',
     width: '40%',
     top: '55%',
