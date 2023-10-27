@@ -11,7 +11,7 @@ export const MapStyles = StyleSheet.create({
         },
         map: {
             height: '80%',
-            backgroundColor: 'black',
+            width:'100%',
 
         },
         search: {

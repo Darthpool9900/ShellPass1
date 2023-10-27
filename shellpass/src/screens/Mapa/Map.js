@@ -18,13 +18,27 @@ export default function Map() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Adicionado estado de carregamento
 
+  const PostosProximos = async () => {
+    try {
+      const response = await fetch('https://shellgsllocator.geoapp.me/api/v2/locations/nearest_to?lat=-23.555771&lng=-46.639557&limit=50&locale=pt_BR&format=json%27');
+     
+      const json = await response.json();
+      console.log(json);
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     (async function () {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();//Captura as informaçoes de permissões do celular
       if (status === 'granted') {
         try {
-          const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
-          setOrigin({
+          const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });//Captura a localização do usuário
+          setOrigin({//Define as coordenadas atuais do usuário
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             latitudeDelta: LATITUDE_DELTA,
@@ -37,28 +51,14 @@ export default function Map() {
         throw new Error('Location permission not granted');
       }
     })();
-  }, []);
-
-  const PostosProximos = async () => {
-    try {
-      const response = await fetch('https://shellgsllocator.geoapp.me/api/v2/locations/nearest_to?lat=-23.555771&lng=-46.639557&limit=50&locale=pt_BR&format=json%27');
-      const json = await response.json();
-      setData(json.postos);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
     PostosProximos();
   }, []);
+
 
   return (
     <View style={MapStyles.container}>
       <View style={MapStyles.search}>
-        <BotaoVolta1 />
+        <BotaoVolta1 onPress={PostosProximos}/>
         <TouchableOpacity
         style={MapStyles.bloco}
           data={data}
@@ -75,14 +75,35 @@ export default function Map() {
       </View>
 
       <MapView
-        style={MapStyles.map}
-        initialRegion={origin}
-        showsUserLocation={true}
-        loadingEnabled={true}
-        provider={PROVIDER_GOOGLE}
-      >
-        <Text >Marcadores no mapa, se necessário </Text> 
-      </MapView>
+  style={MapStyles.map}
+  initialRegion={origin}
+  showsUserLocation={true}
+  loadingEnabled={true}
+  provider={PROVIDER_GOOGLE}
+>
+  {data && Object.keys(data).map((key) => {
+    const posto = data[key];
+    const latitude = parseFloat(posto.lat);
+    const longitude = parseFloat(posto.lng);
+
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+      return (
+        <Marker
+          key={key}
+          coordinate={{
+            latitude: latitude,
+            longitude: longitude,
+          }}
+          title={posto.title || ''}
+          description={posto.description || ''}
+        />
+      );
+    } else {
+      console.warn(`Invalid latitude or longitude for posto with key ${key}`);
+      return null;
+    }
+  })}
+</MapView>
     </View>
   );
 }
